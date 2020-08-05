@@ -1,6 +1,5 @@
 extends Area2D
 
-
 var playerVars
 
 # Called when the node enters the scene tree for the first time.
@@ -11,8 +10,6 @@ func _ready():
 func _process(delta):
 	rotate(deg2rad(delta * 450))
 #	pass
-
-
 
 func _on_Point_body_entered(body):
 	playerVars.points += 1
