@@ -1,0 +1,96 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Platform.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Point.tscn" type="PackedScene" id=2]
+
+[node name="Level1" type="Node2D"]
+position = Vector2( -51.4559, 796.989 )
+
+[node name="Point" parent="." instance=ExtResource( 2 )]
+position = Vector2( 178.299, -38.956 )
+
+[node name="Point2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 407.539, -35.9594 )
+
+[node name="Point3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 940.937, -92.8951 )
+
+[node name="Point4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1349.97, -8.98987 )
+
+[node name="Point5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1729.05, -106.38 )
+
+[node name="Point6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2037.7, -290.672 )
+
+[node name="Point7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2596.57, -233.736 )
+
+[node name="Point8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3303.77, 572.353 )
+
+[node name="Point9" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3354.71, 497.438 )
+
+[node name="Point10" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3396.66, 566.36 )
+
+[node name="Point11" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3446.11, 495.94 )
+
+[node name="Point12" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3498.55, 569.357 )
+
+[node name="Platform" parent="." instance=ExtResource( 1 )]
+position = Vector2( -57.8139, -109.698 )
+rotation = 1.5708
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 65.8636, 55.6022 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 507.059, 53.2238 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 936.363, -25.2639 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1335.94, 57.9806 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1709.35, -35.9668 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 530.123, -332.348 )
+scale = Vector2( 4.276, 1 )
+
+[node name="Platform8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2332.49, -138.239 )
+rotation = 0.345575
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2598.87, -13.3719 )
+rotation = 0.523599
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2839.09, 155.496 )
+rotation = 0.698132
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform11" parent="." instance=ExtResource( 1 )]
+position = Vector2( 3047.44, 349.382 )
+rotation = 0.802851
+scale = Vector2( 1, 0.5 )
+
+[node name="Platform12" parent="." instance=ExtResource( 1 )]
+position = Vector2( 3426.44, 637.882 )
+scale = Vector2( 1, 0.5 )
