@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+# Hi Jord <3
 
 # Declare member variables here.
 const FLOOR_NORMAL = Vector2.UP
