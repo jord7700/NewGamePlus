@@ -39,8 +39,8 @@ radius = 33.8262
 height = 89.9787
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 34.1112
-height = 4.6116
+radius = 34.0067
+height = 7.7635
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 0
@@ -62,7 +62,17 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0.314972, 43.1523 )
+position = Vector2( -0.157486, 40.9689 )
 shape = SubResource( 3 )
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.125
+one_shot = true
+
+[node name="DashCoolDownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DashCoolDownTimer" to="." method="_on_DashCoolDownTimer_timeout"]
