@@ -4,18 +4,19 @@ extends KinematicBody2D
 
 # Declare member variables here.
 const FLOOR_NORMAL = Vector2.UP
-const SLOPE_THRESHOLD = deg2rad(45)
-const SLOPE_BOOST = 1
-const GRAVITY = 245
-const WALKINGSPEED = 450
+const SLOPE_THRESHOLD = deg2rad(42)
+const GRAVITY = 3100
+const WALKINGSPEED = 685
 
 #speed related
-var walkingMod = 0
+var walkingMod = 1
 var xSpeed = 0
 var velocity = Vector2(0, 0)
 var direction = Vector2.ZERO
-#time related
+#time and timers
 var timeInAir = 0
+var dashFrames = 0
+
 #bools
 var inAir = true
 var isDashing = false
@@ -28,61 +29,75 @@ func _ready():
 	print("player loaded")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta):	
 	check_input()
 	check_anim()
+	if dashFrames > 0:
+		dashFrames -= 1
+		if dashFrames == 0:
+			xSpeed = 0
 
 func _physics_process(delta):
 	#handle movement
 	velocity.x = xSpeed
 	if inAir == true:
-		timeInAir += delta
-	move_and_slide_with_snap(velocity, Vector2(0, 10.0), FLOOR_NORMAL, true, 4, SLOPE_THRESHOLD)
-	if velocity.y <= 550:
+		timeInAir = delta
+		print(timeInAir)
+	move_and_slide_with_snap(velocity, Vector2(0, 10), FLOOR_NORMAL, true, 4, SLOPE_THRESHOLD)
+	if velocity.y <= 1200:
 		velocity.y += GRAVITY * timeInAir
 	#end handle movement
 
 func _on_Area2D_body_entered(body):
 	inAir = false
 	timeInAir = 0
+	velocity.y = 10
 	var slope_angle = abs(body.get_rotation_degrees())
-	#print("slope angle: " , slope_angle)
 	if slope_angle >= 0 and slope_angle < rad2deg(SLOPE_THRESHOLD):
 		if velocity.y >= 0:
 			jumpUsed = false
 		if walkingMod <= 50 and slope_angle > 0:
-			walkingMod += 300 / slope_angle
+			walkingMod += 1 / slope_angle
 
 func _on_Area2D_body_exited(body):
 	inAir = true
 
+func _on_DashTimer_timeout():
+	xSpeed = 0
+
+func _on_DashCoolDownTimer_timeout():
+	dashUsed = false
+
 #custom functions
 func check_input():
-	if Input.is_action_pressed("Move_Right"):
-		xSpeed = WALKINGSPEED + walkingMod
-	elif Input.is_action_pressed("Move_Left"):
-		xSpeed = -WALKINGSPEED - walkingMod
-	if Input.is_action_just_released("Move_Right"):
-		xSpeed = 0
-		walkingMod = 0
-	elif Input.is_action_just_released("Move_Left"):
-		xSpeed = 0
-		walkingMod = 0
-	if Input.is_action_just_pressed("Slide_Right"):
-		pass
-	elif Input.is_action_just_released("Slide_Right"):
-		pass
-	if Input.is_action_just_pressed("Slide_Left"):		
-		pass
-	elif Input.is_action_just_released("Slide_Left"):
-		pass
+	if $DashTimer.is_stopped():
+		if Input.is_action_pressed("Move_Right"):
+			xSpeed = WALKINGSPEED * walkingMod
+		elif Input.is_action_pressed("Move_Left"):
+			xSpeed = -WALKINGSPEED * walkingMod
+		if Input.is_action_just_released("Move_Right"):
+			xSpeed = 0
+		elif Input.is_action_just_released("Move_Left"):
+			xSpeed = 0
+		if Input.is_action_just_pressed("Slide_Right"):
+			if dashUsed == false:
+				xSpeed = 2900
+				$DashTimer.start()
+				dashUsed = true
+				$DashCoolDownTimer.start()
+		if Input.is_action_just_pressed("Slide_Left"):
+			if dashUsed == false:
+				xSpeed = -2900
+				$DashTimer.start()
+				dashUsed = true
+				$DashCoolDownTimer.start()
+		if Input.is_action_pressed("Sprint"):
+			walkingMod = 2
+		if Input.is_action_just_released("Sprint"):
+			walkingMod = 1
 	if Input.is_action_just_pressed("ui_select") and jumpUsed == false:
 		jumpUsed = true
-		velocity.y = -1200
-	if Input.is_action_pressed("Sprint"):
-		walkingMod = 750
-	if Input.is_action_just_released("Sprint"):
-		walkingMod = 0
+		velocity.y = -1420
 
 func check_anim():
 	if velocity.x > 0 and velocity.x < 451:
