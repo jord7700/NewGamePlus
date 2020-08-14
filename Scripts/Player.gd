@@ -8,20 +8,21 @@ const SLOPE_THRESHOLD = deg2rad(42)
 const GRAVITY = 3100
 const WALKINGSPEED = 685
 
-#speed related
+#Movement related
 var walkingMod = 1
 var xSpeed = 0
 var velocity = Vector2(0, 0)
 var direction = Vector2.ZERO
-#time and timers
-var timeInAir = 0
-var dashFrames = 0
-
-#bools
+var facingDirection = "left"
+#Movement bools
 var inAir = true
 var isDashing = false
 var dashUsed = false
 var jumpUsed = true
+
+#time and timers
+var timeInAir = 0
+var dashFrames = 0
 
 #predefined functions and node calls
 # Called when the node enters the scene tree for the first time.
@@ -63,6 +64,10 @@ func _on_Area2D_body_exited(body):
 
 func _on_DashTimer_timeout():
 	xSpeed = 0
+	if facingDirection == "right":
+		$AnimatedSprite.play("right")
+	elif facingDirection == "left":
+		$AnimatedSprite.play("left")
 
 func _on_DashCoolDownTimer_timeout():
 	dashUsed = false
@@ -73,9 +78,11 @@ func check_input():
 		if Input.is_action_pressed("Move_Right"):
 			xSpeed = WALKINGSPEED * walkingMod
 			$AnimatedSprite.play("right")
+			facingDirection = "right"
 		elif Input.is_action_pressed("Move_Left"):
 			xSpeed = -WALKINGSPEED * walkingMod
 			$AnimatedSprite.play("left")
+			facingDirection = "left"
 		if Input.is_action_just_released("Move_Right"):
 			xSpeed = 0			
 		elif Input.is_action_just_released("Move_Left"):
