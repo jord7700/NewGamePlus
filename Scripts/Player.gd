@@ -87,18 +87,28 @@ func check_input():
 			xSpeed = 0			
 		elif Input.is_action_just_released("Move_Left"):
 			xSpeed = 0
-		if Input.is_action_just_pressed("Slide_Right"):
-			if dashUsed == false:
+		if Input.is_action_just_pressed("Slide_Right") and dashUsed == false:
+			if facingDirection == "right":
 				$AnimatedSprite.play("dash_right")
 				xSpeed = 2900
 				$DashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
-		if Input.is_action_just_pressed("Slide_Left"):
-			if dashUsed == false:
+			else:
+				xSpeed = 2900
+				$BackDashTimer.start()
+				dashUsed = true
+				$DashCoolDownTimer.start()
+		if Input.is_action_just_pressed("Slide_Left") and dashUsed == false:
+			if facingDirection == "left":
 				$AnimatedSprite.play("dash_left")
 				xSpeed = -2900
 				$DashTimer.start()
+				dashUsed = true
+				$DashCoolDownTimer.start()
+			else:
+				xSpeed = -2900
+				$BackDashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
 		if Input.is_action_pressed("Sprint"):

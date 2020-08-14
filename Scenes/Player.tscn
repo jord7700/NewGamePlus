@@ -69,10 +69,15 @@ shape = SubResource( 3 )
 wait_time = 0.125
 one_shot = true
 
+[node name="BackDashTimer" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+
 [node name="DashCoolDownTimer" type="Timer" parent="."]
 wait_time = 0.37
 one_shot = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="BackDashTimer" to="." method="_on_DashTimer_timeout"]
 [connection signal="timeout" from="DashCoolDownTimer" to="." method="_on_DashCoolDownTimer_timeout"]
