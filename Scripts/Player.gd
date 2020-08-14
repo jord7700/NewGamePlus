@@ -31,7 +31,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):	
 	check_input()
-	check_anim()
 	if dashFrames > 0:
 		dashFrames -= 1
 		if dashFrames == 0:
@@ -73,20 +72,24 @@ func check_input():
 	if $DashTimer.is_stopped():
 		if Input.is_action_pressed("Move_Right"):
 			xSpeed = WALKINGSPEED * walkingMod
+			$AnimatedSprite.play("right")
 		elif Input.is_action_pressed("Move_Left"):
 			xSpeed = -WALKINGSPEED * walkingMod
+			$AnimatedSprite.play("left")
 		if Input.is_action_just_released("Move_Right"):
-			xSpeed = 0
+			xSpeed = 0			
 		elif Input.is_action_just_released("Move_Left"):
 			xSpeed = 0
 		if Input.is_action_just_pressed("Slide_Right"):
 			if dashUsed == false:
+				$AnimatedSprite.play("dash_right")
 				xSpeed = 2900
 				$DashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
 		if Input.is_action_just_pressed("Slide_Left"):
 			if dashUsed == false:
+				$AnimatedSprite.play("dash_left")
 				xSpeed = -2900
 				$DashTimer.start()
 				dashUsed = true
@@ -98,13 +101,3 @@ func check_input():
 	if Input.is_action_just_pressed("ui_select") and jumpUsed == false:
 		jumpUsed = true
 		velocity.y = -1420
-
-func check_anim():
-	if velocity.x > 0 and velocity.x < 451:
-		$AnimatedSprite.play("right")
-	elif velocity.x <= 0 and velocity.x > -451:
-		$AnimatedSprite.play("left")
-	elif velocity.x > 451:
-		$AnimatedSprite.play("dash_right")
-	elif velocity.x < -451:
-		$AnimatedSprite.play("dash_left")
