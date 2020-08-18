@@ -113,7 +113,11 @@ func check_input():
 				$DashCoolDownTimer.start()
 		if Input.is_action_pressed("Sprint"):
 			walkingMod = 2
+		elif Input.is_action_pressed("Crouch"):
+			walkingMod = 0.2
 		if Input.is_action_just_released("Sprint"):
+			walkingMod = 1
+		if Input.is_action_just_released("Crouch"):
 			walkingMod = 1
 	if Input.is_action_just_pressed("ui_select") and jumpUsed == false:
 		jumpUsed = true
