@@ -24,6 +24,10 @@ var jumpUsed = true
 var timeInAir = 0
 var dashFrames = 0
 
+#weird stuff
+#var playerCollisionTransform = $PlayerCollision2D.get_transform()
+
+
 #predefined functions and node calls
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -115,10 +119,22 @@ func check_input():
 			walkingMod = 2
 		elif Input.is_action_pressed("Crouch"):
 			walkingMod = 0.2
+			$PlayerCollision2D.set_scale(Vector2(1, 0.6))
+			$PlayerArea2D.set_scale(Vector2(1, 0.6))
+			if facingDirection == "left":
+				$AnimatedSprite.play("crouch_left")
+			else:
+				$AnimatedSprite.play("crouch_right")
 		if Input.is_action_just_released("Sprint"):
 			walkingMod = 1
 		if Input.is_action_just_released("Crouch"):
 			walkingMod = 1
+			$PlayerCollision2D.set_scale(Vector2(1, 1))
+			$PlayerArea2D.set_scale(Vector2(1, 1))
+			if facingDirection == "left":
+				$AnimatedSprite.play("left")
+			else:
+				$AnimatedSprite.play("right")
 	if Input.is_action_just_pressed("ui_select") and jumpUsed == false:
 		jumpUsed = true
 		velocity.y = -1420
