@@ -30,9 +30,9 @@ animations = [ {
 "name": "crouch_left",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "crouch_right",
+"name": "dash_right",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -40,19 +40,17 @@ animations = [ {
 "name": "dash_left",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "dash_right",
+"name": "crouch_right",
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 31.2704
-height = 26.2066
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 20, 20 )
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 30.7605
-height = 8.7607
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 20, 20 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 0
@@ -67,7 +65,7 @@ frames = SubResource( 1 )
 
 [node name="PlayerCollision2D" type="CollisionShape2D" parent="."]
 light_mask = 2
-position = Vector2( 0, 31.514 )
+position = Vector2( 0, 55 )
 shape = SubResource( 2 )
 
 [node name="PlayerArea2D" type="Area2D" parent="."]
@@ -75,7 +73,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea2D"]
-position = Vector2( -0.157486, 40.9689 )
+position = Vector2( 0, 55.2 )
 shape = SubResource( 3 )
 
 [node name="DashTimer" type="Timer" parent="."]
