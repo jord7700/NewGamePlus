@@ -17,16 +17,15 @@ var facingDirection = "left"
 #Movement bools
 var inAir = true
 var isDashing = false
+var isCrouching = false
 var dashUsed = false
 var jumpUsed = true
 
 #time and timers
 var timeInAir = 0
-var dashFrames = 0
 
 #weird stuff
 var pause = false
-#var playerCollisionTransform = $PlayerCollision2D.get_transform()
 
 
 #predefined functions and node calls
@@ -35,12 +34,8 @@ func _ready():
 	print("player loaded")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):	
+func _process(delta):
 	check_input()
-	if dashFrames > 0:
-		dashFrames -= 1
-		if dashFrames == 0:
-			xSpeed = 0
 
 func _physics_process(delta):
 	#handle movement
@@ -90,64 +85,78 @@ func check_input():
 		if Input.is_action_just_pressed("ui_cancel"):
 			pause = true
 		if $DashTimer.is_stopped():
-			if Input.is_action_pressed("Move_Right"):
-				xSpeed = WALKINGSPEED * walkingMod
-				$AnimatedSprite.play("right")
-				facingDirection = "right"
-			elif Input.is_action_pressed("Move_Left"):
-				xSpeed = -WALKINGSPEED * walkingMod
-				$AnimatedSprite.play("left")
-				facingDirection = "left"
-			if Input.is_action_just_released("Move_Right"):
-				xSpeed = 0
-			elif Input.is_action_just_released("Move_Left"):
-				xSpeed = 0
-			if Input.is_action_just_pressed("Slide_Right") and dashUsed == false:
-				if facingDirection == "right":
-					$AnimatedSprite.play("dash_right")
-					xSpeed = 2900
-					$DashTimer.start()
-					dashUsed = true
-					$DashCoolDownTimer.start()
-				else:
-					xSpeed = 2900
-					$BackDashTimer.start()
-					dashUsed = true
-					$DashCoolDownTimer.start()
-			if Input.is_action_just_pressed("Slide_Left") and dashUsed == false:
-				if facingDirection == "left":
-					$AnimatedSprite.play("dash_left")
-					xSpeed = -2900
-					$DashTimer.start()
-					dashUsed = true
-					$DashCoolDownTimer.start()
-				else:
-					xSpeed = -2900
-					$BackDashTimer.start()
-					dashUsed = true
-					$DashCoolDownTimer.start()
-			if Input.is_action_pressed("Sprint"):
-				walkingMod = 2
-			elif Input.is_action_pressed("Crouch"):
-				walkingMod = 0.2
-				if inAir == false:
-					set_position(Vector2(get_position().x, get_position().y + 6.0))
-				$PlayerCollision2D.set_scale(Vector2(1, 0.5))
-				$PlayerArea2D/CollisionShape2D.set_scale(Vector2(1, 0.5))
-				if facingDirection == "left":
-					$AnimatedSprite.play("crouch_left")
-				else:
-					$AnimatedSprite.play("crouch_right")
-			if Input.is_action_just_released("Sprint"):
-				walkingMod = 1
-			if Input.is_action_just_released("Crouch"):
-				walkingMod = 1
-				$PlayerCollision2D.set_scale(Vector2(1, 1))
-				$PlayerArea2D/CollisionShape2D.set_scale(Vector2(1, 1))
-				if facingDirection == "left":
-					$AnimatedSprite.play("left")
-				else:
-					$AnimatedSprite.play("right")
+			checkWalk()
+			checkSlide()
+			checkSprint()
+			checkCrouch()
 		if Input.is_action_just_pressed("ui_select") and jumpUsed == false:
 			jumpUsed = true
 			velocity.y = -1420
+
+func checkWalk():
+	if Input.is_action_pressed("Move_Right"):
+			xSpeed = WALKINGSPEED * walkingMod
+			$AnimatedSprite.play("right")
+			facingDirection = "right"
+	elif Input.is_action_pressed("Move_Left"):
+			xSpeed = -WALKINGSPEED * walkingMod
+			$AnimatedSprite.play("left")
+			facingDirection = "left"
+	elif Input.is_action_just_released("Move_Right"):
+			xSpeed = 0
+	elif Input.is_action_just_released("Move_Left"):
+			xSpeed = 0
+
+func checkSlide():
+	if Input.is_action_just_pressed("Slide_Right") and dashUsed == false:
+		if facingDirection == "right":
+			$AnimatedSprite.play("dash_right")
+			xSpeed = 2900
+			$DashTimer.start()
+			dashUsed = true
+			$DashCoolDownTimer.start()
+		else:
+			xSpeed = 2900
+			$BackDashTimer.start()
+			dashUsed = true
+			$DashCoolDownTimer.start()
+	if Input.is_action_just_pressed("Slide_Left") and dashUsed == false:
+		if facingDirection == "left":
+			$AnimatedSprite.play("dash_left")
+			xSpeed = -2900
+			$DashTimer.start()
+			dashUsed = true
+			$DashCoolDownTimer.start()
+		else:
+			xSpeed = -2900
+			$BackDashTimer.start()
+			dashUsed = true
+			$DashCoolDownTimer.start()
+
+func checkSprint():
+	if Input.is_action_pressed("Sprint"):
+		walkingMod = 2
+
+func checkCrouch():
+	if Input.is_action_pressed("Crouch"):
+		walkingMod = 0.2
+		if inAir == false:
+			set_position(Vector2(get_position().x, get_position().y + 6.0))
+		$PlayerCollision2D.set_scale(Vector2(1, 0.5))
+		$PlayerArea2D/CollisionShape2D.set_scale(Vector2(1, 0.5))
+		isCrouching = true
+		if facingDirection == "left":
+			$AnimatedSprite.play("crouch_left")
+		else:
+			$AnimatedSprite.play("crouch_right")
+	if Input.is_action_just_released("Sprint"):
+		walkingMod = 1
+	if Input.is_action_just_released("Crouch"):
+		walkingMod = 1
+		$PlayerCollision2D.set_scale(Vector2(1, 1))
+		$PlayerArea2D/CollisionShape2D.set_scale(Vector2(1, 1))
+		isCrouching = false
+		if facingDirection == "left":
+			$AnimatedSprite.play("left")
+		else:
+			$AnimatedSprite.play("right")
