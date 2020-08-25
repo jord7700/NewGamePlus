@@ -143,7 +143,7 @@ func check_input():
 			if Input.is_action_just_released("Crouch"):
 				walkingMod = 1
 				$PlayerCollision2D.set_scale(Vector2(1, 1))
-				$PlayerArea2D.set_scale(Vector2(1, 1))			
+				$PlayerArea2D/CollisionShape2D.set_scale(Vector2(1, 1))
 				if facingDirection == "left":
 					$AnimatedSprite.play("left")
 				else:
