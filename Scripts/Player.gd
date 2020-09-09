@@ -77,6 +77,7 @@ func _on_DashTimer_timeout():
 		$AnimatedSprite.play("left")
 
 func _on_DashCoolDownTimer_timeout():
+	$DashCoolDownTimer.set_wait_time(0.37)
 	dashUsed = false
 
 #custom functions
@@ -131,7 +132,6 @@ func checkCrouch():
 
 func checkSlide():
 	if Input.is_action_just_pressed("Slide_Right") and dashUsed == false:
-		print(isCrouching)
 		if isCrouching == false:
 			if facingDirection == "right":
 				$AnimatedSprite.play("dash_right")
@@ -144,25 +144,26 @@ func checkSlide():
 				$BackDashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
+		#roll right
 		elif isCrouching == true:
 			$AnimatedSprite.play("roll")
 			if facingDirection == "right":
 				xSpeed = 1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start()
+				$DashCoolDownTimer.start(0.25)
 			else:
 				xSpeed = 1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start()
+				$DashCoolDownTimer.start(0.25)
 
 	elif Input.is_action_just_pressed("Slide_Left") and dashUsed == false:
 		if isCrouching == false:
 			if facingDirection == "left" and isCrouching == false:
 				$AnimatedSprite.play("dash_left")
 				xSpeed = -2900
-				$DashTimer.start()
+				$DashTimer.start()				
 				dashUsed = true
 				$DashCoolDownTimer.start()
 			else:
@@ -170,18 +171,19 @@ func checkSlide():
 				$BackDashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
+		#roll left
 		elif isCrouching == true:
 			$AnimatedSprite.play("roll")
 			if facingDirection == "left" and isCrouching == false:
 				xSpeed = -1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start()
+				$DashCoolDownTimer.start(0.25)
 			else:
 				xSpeed = -1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start()
+				$DashCoolDownTimer.start(0.25)
 
 func checkSprint():
 	if Input.is_action_pressed("Sprint"):
