@@ -151,12 +151,12 @@ func checkSlide():
 				xSpeed = 1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start(0.25)
+				$DashCoolDownTimer.start()
 			else:
 				xSpeed = 1300
 				$DashTimer.start()
 				dashUsed = true
-				$DashCoolDownTimer.start(0.25)
+				$DashCoolDownTimer.start()
 
 	elif Input.is_action_just_pressed("Slide_Left") and dashUsed == false:
 		if isCrouching == false:
