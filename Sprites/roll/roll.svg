@@ -16,7 +16,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="roll.svg">
+   sodipodi:docname="roll.svg"
+   inkscape:export-filename="E:\Applications\Godot 3.2\GameRepo\NewGamePlus\Sprites\roll\roll4.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -56,8 +59,8 @@
      id="layer1"
      transform="translate(0,-266.83748)">
     <image
-       y="266.8942"
-       x="5.6885424"
+       y="195.53084"
+       x="-198.82236"
        id="image823"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAByCAYAAADwDJeMAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
 AAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAhTSURB
@@ -102,6 +105,9 @@ eua9kn7zDk6U3zslSuKqK/3lf5nrOgyUCewDAAAAAElFTkSuQmCC
 "
        preserveAspectRatio="none"
        height="30.1625"
-       width="19.049999" />
+       width="19.049999"
+       transform="rotate(-45)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
 </svg>

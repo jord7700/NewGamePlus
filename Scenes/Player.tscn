@@ -42,14 +42,14 @@ animations = [ {
 "name": "dash_right",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "crouch_right",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "dash_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "crouch_right",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 6 ) ],
