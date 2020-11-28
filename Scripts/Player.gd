@@ -87,6 +87,7 @@ func check_input():
 		if Input.is_action_just_pressed("ui_cancel"):
 			pause = true
 		if $DashTimer.is_stopped():
+			checkAttack()
 			checkWalk()
 			checkCrouch()
 			checkSlide()
@@ -95,14 +96,23 @@ func check_input():
 			jumpUsed = true
 			velocity.y = -1420
 
+func checkAttack():
+	if Input.is_action_just_pressed("Light_Attack"):
+		print("attack")
+		$AttackArea2D/CollisionShape2D.disabled = false
+		yield(get_tree().create_timer(0.25), "timeout")
+		$AttackArea2D/CollisionShape2D.disabled = true
+
 func checkWalk():
 	if Input.is_action_pressed("Move_Right"):
 			xSpeed = WALKINGSPEED * walkingMod
 			$AnimatedSprite.play("right")
+			$AttackArea2D.position = Vector2(30, 0)
 			facingDirection = "right"
 	elif Input.is_action_pressed("Move_Left"):
 			xSpeed = -WALKINGSPEED * walkingMod
 			$AnimatedSprite.play("left")
+			$AttackArea2D.position = Vector2(-30, 0)
 			facingDirection = "left"
 	elif Input.is_action_just_released("Move_Right"):
 			xSpeed = 0
@@ -193,3 +203,8 @@ func checkSprint():
 		walkingMod = 2
 	elif Input.is_action_just_released("Sprint"):
 		walkingMod = 1
+
+
+func _on_AttackArea2D_area_entered(area):
+	print("Hit!")
+	area.get_owner().damaged(10)
