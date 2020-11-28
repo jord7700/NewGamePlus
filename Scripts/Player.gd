@@ -27,7 +27,6 @@ var timeInAir = 0
 #weird stuff
 var pause = false
 
-
 #predefined functions and node calls
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -77,6 +76,8 @@ func _on_DashTimer_timeout():
 		$AnimatedSprite.play("left")
 
 func _on_DashCoolDownTimer_timeout():
+	while(inAir == true):
+		yield(get_tree(), "idle_frame")
 	$DashCoolDownTimer.set_wait_time(0.37)
 	dashUsed = false
 
@@ -140,10 +141,11 @@ func checkSlide():
 				dashUsed = true
 				$DashCoolDownTimer.start()
 			else:
-				xSpeed = 2900
-				$BackDashTimer.start()
-				dashUsed = true
-				$DashCoolDownTimer.start()
+				if inAir == false:
+					xSpeed = 2900
+					$BackDashTimer.start()
+					dashUsed = true
+					$DashCoolDownTimer.start()
 		#roll right
 		elif isCrouching == true:
 			$AnimatedSprite.play("roll")
@@ -163,14 +165,15 @@ func checkSlide():
 			if facingDirection == "left" and isCrouching == false:
 				$AnimatedSprite.play("dash_left")
 				xSpeed = -2900
-				$DashTimer.start()				
+				$DashTimer.start()
 				dashUsed = true
 				$DashCoolDownTimer.start()
 			else:
-				xSpeed = -2900
-				$BackDashTimer.start()
-				dashUsed = true
-				$DashCoolDownTimer.start()
+				if inAir == false:
+					xSpeed = -2900
+					$BackDashTimer.start()
+					dashUsed = true
+					$DashCoolDownTimer.start()
 		#roll left
 		elif isCrouching == true:
 			$AnimatedSprite.play("roll")

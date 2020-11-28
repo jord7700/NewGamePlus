@@ -17,11 +17,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "right",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "left",
@@ -29,12 +24,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "default",
+"name": "right",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "crouch_left",
+"name": "default",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -56,6 +51,11 @@ animations = [ {
 "loop": true,
 "name": "roll",
 "speed": 60.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "crouch_left",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]

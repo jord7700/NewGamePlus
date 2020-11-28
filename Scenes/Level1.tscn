@@ -42,16 +42,6 @@ position = Vector2( 3446.11, 495.94 )
 [node name="Point12" parent="." instance=ExtResource( 2 )]
 position = Vector2( 3498.55, 569.357 )
 
-[node name="Platform" parent="." instance=ExtResource( 1 )]
-position = Vector2( -178.903, -457.829 )
-rotation = 1.05767
-scale = Vector2( 1, 0.5 )
-
-[node name="Platform13" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1268.53, -443.92 )
-rotation = -0.675442
-scale = Vector2( 1, 0.5 )
-
 [node name="Platform2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 65.8636, 55.6022 )
 scale = Vector2( 1, 0.5 )
